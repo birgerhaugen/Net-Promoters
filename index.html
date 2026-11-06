@@ -125,7 +125,7 @@ main{padding:8px 0 24px}
 .board{position:relative;width:min(100%,400px,calc((100svh - 120px) / 2.2));min-width:240px;aspect-ratio:100/220;border-radius:10px;overflow:hidden;background:var(--navy);container-type:inline-size;user-select:none;-webkit-user-select:none;touch-action:pan-y}
 .court{position:absolute;inset:0;width:100%;height:100%;display:block}
 .board-txt{position:absolute;left:0;right:0;text-align:center;pointer-events:none;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.55);font-size:clamp(10px,4cqw,15px);transform:translateY(-50%)}
-.bench-note{position:absolute;left:6%;width:44%;top:89.2%;pointer-events:none;color:#E6ECF3;font-size:clamp(8.5px,2.9cqw,11.5px);line-height:1.25}
+.bench-note{position:absolute;left:6%;width:40%;top:89.2%;pointer-events:none;color:#E6ECF3;font-size:clamp(8.5px,2.9cqw,11.5px);line-height:1.25}
 .bench-note b{display:block;font-family:var(--f-display);font-size:clamp(12px,4.6cqw,17px);letter-spacing:.06em;text-transform:uppercase;line-height:1}
 .tok{position:absolute;left:0;top:0;--d:clamp(25px,10cqw,38px);width:var(--d);height:var(--d);margin-left:calc(var(--d) / -2);margin-top:calc(var(--d) / -2);display:block;cursor:grab;touch-action:none;z-index:2;transition:left .6s cubic-bezier(.2,.8,.2,1),top .6s cubic-bezier(.2,.8,.2,1)}
 .board.slow .tok{transition-duration:2.4s}
@@ -269,8 +269,8 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
         <section class="exec" aria-labelledby="exec-h">
           <h2 id="exec-h">Executive summary</h2>
           <ul>
-            <li>Consulting stiller med <b>åtte spillere, null treningsøkter</b> og én svært gjennomarbeidet nettside.</li>
-            <li>Laget er tverrfaglig: seks fagområder fordelt på åtte spillere. Vi er altså regulert, risikovurdert, cybersikret og godt endringsledet.</li>
+            <li>Consulting stiller med <b>ni spillere, null treningsøkter</b> og én svært gjennomarbeidet nettside.</li>
+            <li>Laget er tverrfaglig: seks fagområder og én fersk intern, fordelt på ni spillere. Vi er altså regulert, risikovurdert, cybersikret og godt endringsledet.</li>
             <li>Analysen viser betydelig oppside i å treffe ballen. Vi anbefaler å gjøre det oftere.</li>
             <li>Motstanderne har tung kompetanse på revisjon, skatt og verdsettelse. Ingen av delene er volleyball.</li>
             <li><b>Anbefaling:</b> Vinne. <b>Neste steg:</b> Ta feiringen offline etter siste kamp.</li>
@@ -281,7 +281,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
           <div class="kpi"><b>47</b><span class="lbl">Slides produsert om taktikk</span><span class="rag g">Grønn</span></div>
           <div class="kpi"><b>112 %</b><span class="lbl">Forventet utilization på banen</span><span class="rag a">Over kapasitet</span></div>
           <div class="kpi"><b>+100</b><span class="lbl">Net Promoter Score (selvrapportert)</span><span class="rag g">Grønn</span></div>
-          <p class="kpi-src">Kilde: Teamets egen analyse, n = 8. Ikke revidert. Vi spurte ikke Assurance.</p>
+          <p class="kpi-src">Kilde: Teamets egen analyse, n = 9. Ikke revidert. Vi spurte ikke Assurance.</p>
         </div>
       </div>
 
@@ -306,7 +306,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
   <section class="slide" id="laget" aria-labelledby="laget-h">
     <div class="slide-head">
       <p class="kicker">Staffing-oversikt</p>
-      <h2 id="laget-h">Åtte spillere fra seks fagområder, med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
+      <h2 id="laget-h">Ni spillere fra seks fagområder, med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
     </div>
     <div class="cards" id="cards"></div>
     <ul class="legend" aria-label="Forklaring på stats">
@@ -457,6 +457,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
           <tr><td>Tvilsom dommeravgjørelse</td><td>Jacob</td><td>Stian, som Director</td><td>Tax &amp; Law, mot honorar</td><td>Dommeren, med respekt</td></tr>
           <tr><td>Siste ball i tiebreak</td><td>Stian</td><td>Stian</td><td>Det er ikke tid</td><td>Hele hallen</td></tr>
           <tr><td>Godkjenning av timer brukt på turneringen</td><td>Alle</td><td>Stian</td><td>Mathias, som Senior Manager</td><td>Ingen. Det er null timer.</td></tr>
+          <tr><td>Spørsmålet ingen andre tør å stille</td><td>Lasse</td><td>Lasse</td><td>Ingen</td><td>Alle, takknemlig</td></tr>
           <tr><td>Tapt poeng</td><td>Ingen</td><td class="q">«Markedsforholdene»</td><td>Ikke nødvendig</td><td>Styringsgruppen, neste kvartal</td></tr>
           <tr><td>Feiring etter poeng</td><td>Alle</td><td>Birger</td><td>Thea, som har koreografien</td><td>Hele EY, via Teams</td></tr>
         </tbody>
@@ -485,15 +486,16 @@ const PLAYERS = [
   { id: 'mathias', first: 'Mathias', name: 'Mathias K Førland', no: 9, pos: 'KANT', dept: 'Cyber', title: 'Ethical Hacker', ovr: 88, st: [92, 83, 84, 87, 80, 82], power: 'Finner hullet i motstanderens blokk med en kontrollert penetrasjonstest. Alltid med signert scope.', quote: 'Har blokken deres tofaktorautentisering?' },
   { id: 'sine', first: 'Sine', name: 'Sine Viste Fagerland', no: 3, pos: 'OPP', dept: 'People Consulting', title: 'Engagement Manager', ovr: 90, st: [78, 84, 88, 91, 89, 86], power: 'Bestemmer hvem som får ballen, Director inkludert. Formelt intern, i praksis endringsleder på banen.', quote: 'Jeg legger den klar, så tar du æren.' },
   { id: 'stian', first: 'Stian', name: 'Stian Haugen', no: 11, pos: 'MID', dept: 'FSO', title: 'Executive Sponsor', ovr: 87, st: [88, 80, 81, 85, 83, 84], power: 'Hentes inn når det brenner. Har alltid nok kapitalbuffer til å tåle et tapt sett.', quote: 'Dette har jeg sett på et tidligere prosjekt.' },
-  { id: 'thea', first: 'Thea', name: 'Thea K Nygaard', no: 5, pos: 'DIA', dept: 'Risk', title: 'Three Lines of Defence', ovr: 88, st: [90, 85, 80, 86, 92, 88], power: 'Første, andre og tredje forsvarslinje i én og samme spiller. Risikoappetitten for tapte baller er null.', quote: 'Den risikoen aksepterer jeg ikke.' }
+  { id: 'thea', first: 'Thea', name: 'Thea K Nygaard', no: 5, pos: 'DIA', dept: 'Risk', title: 'Three Lines of Defence', ovr: 88, st: [90, 85, 80, 86, 92, 88], power: 'Første, andre og tredje forsvarslinje i én og samme spiller. Risikoappetitten for tapte baller er null.', quote: 'Den risikoen aksepterer jeg ikke.' },
+  { id: 'lasse', first: 'Lasse', name: 'Lasse', no: 15, pos: 'SUB', dept: 'Consulting (intern)', title: 'Super Sub', ovr: 82, st: [80, 78, 79, 74, 71, 88], power: 'Kommer inn fra benken med full energi. Har ennå ikke lært at ting skal tas offline.', quote: 'Finnes det en mal for dette?', badge: 'Ny på laget' }
 ];
-const POSFULL = {KANT:'Kantspiller', KAP:'Kaptein', LIB:'Libero', MID:'Midtblokker', OPP:'Oppspiller', DIA:'Diagonal'};
+const POSFULL = {SUB:'Innbytter', KANT:'Kantspiller', KAP:'Kaptein', LIB:'Libero', MID:'Midtblokker', OPP:'Oppspiller', DIA:'Diagonal'};
 PLAYERS.forEach(p => p.posFull = POSFULL[p.pos]);
 const P = Object.fromEntries(PLAYERS.map(p => [p.id, p]));
 
 // slots: 0=pos1 (bak høyre/server) 1=pos2 2=pos3 3=pos4 4=pos5 5=pos6 6,7=benk
-const DEFAULT_SLOTS = ['sine','thea','jacob','mathias','abigail','iselin','birger','stian'];
-const BENCH = [[62,203],[82,203]];
+const DEFAULT_SLOTS = ['sine','thea','jacob','mathias','abigail','iselin','birger','stian','lasse'];
+const BENCH = [[55,203],[71,203],[87,203]];
 const OPP_POS = [[22,30],[50,30],[78,30],[22,78],[50,78],[78,78]];
 const BALL_START = [88,177];
 
@@ -526,10 +528,10 @@ const F = {
     desc:'Tre spillere er på banen. Tre jobber hjemmefra fra sidelinjen, med kamera av. De er med på møtet, men ikke på poenget.',
     effect:'God balanse mellom jobb og fritid. Dårlig balanse på banen.',
     pos:[[72,165],[72,115],[42,140],[8,112],[8,140],[8,168]]},
-  util:{name:'Utilization 112 %', tag:'8-0', risk:['r','Kritisk'], owner:'Ressursplanleggeren',
-    desc:'Alle åtte står på banen samtidig, og benken er tom. Helt ulovlig, men ingen er ufakturerbare.',
+  util:{name:'Utilization 112 %', tag:'9-0', risk:['r','Kritisk'], owner:'Ressursplanleggeren',
+    desc:'Alle ni står på banen samtidig, og benken er tom. Helt ulovlig, men ingen er ufakturerbare.',
     effect:'Rekordhøy utnyttelse. Dommeren er ikke enig.',
-    pos:[[84,160],[84,115],[62,115],[16,115],[16,160],[38,160]], bench:[[38,115],[62,160]]}
+    pos:[[80,166],[80,110],[50,110],[20,110],[20,166],[50,166]], bench:[[20,138],[50,138],[80,138]]}
 };
 
 const OPP = {
@@ -594,16 +596,16 @@ $('#cards').innerHTML = PLAYERS.map(cardHTML).join('');
 const QUIZ = [
   {q:'Det er mandag kl. 08.00. Hva gjør du først?', o:[
     ['Oppdaterer Gantt-planen', ['birger','iselin']],
-    ['Sjekker hvordan alle har det', ['abigail','sine']],
+    ['Sjekker hvordan alle har det', ['abigail','sine','lasse']],
     ['Leser risikoregisteret', ['thea','jacob']],
     ['Har allerede vært i tre møter', ['stian','mathias']]]},
   {q:'Ballen kommer rett mot deg. Hva skjer?', o:[
-    ['Jeg tar den, og noterer det', ['abigail','iselin']],
+    ['Jeg tar den, og noterer det', ['abigail','iselin','lasse']],
     ['Jeg sier nei, konstruktivt', ['jacob','stian']],
     ['Jeg legger den klar for noen andre', ['sine','birger']],
     ['Smash. Levert.', ['mathias','thea']]]},
   {q:'Hva er favorittordet ditt i et møte?', o:[
-    ['«Synergi»', ['birger','sine']],
+    ['«Synergi»', ['birger','sine','lasse']],
     ['«Restrisiko»', ['thea','stian']],
     ['«Skalerbart»', ['mathias','iselin']],
     ['«Hvordan lander det for deg?»', ['abigail','jacob']]]},
@@ -611,9 +613,9 @@ const QUIZ = [
     ['lager en change request', ['birger','jacob']],
     ['tar det offline', ['stian','abigail']],
     ['har allerede løst det med en ny prosess', ['iselin','thea']],
-    ['sier ja, etter en sikkerhetsvurdering og en endringsplan', ['mathias','sine']]]},
+    ['sier ja, etter en sikkerhetsvurdering og en endringsplan', ['mathias','sine','lasse']]]},
   {q:'Hva gjør du i timeouten?', o:[
-    ['Holder motivasjonstale', ['birger','abigail']],
+    ['Holder motivasjonstale', ['birger','abigail','lasse']],
     ['Tegner piler på tavla', ['sine','mathias']],
     ['Vurderer risikoen ved neste serve', ['jacob','thea']],
     ['Godkjenner timelister', ['stian','iselin']]]}
@@ -713,7 +715,7 @@ function renderBench(){
   const b = state.slots.slice(6);
   $('#benchText').textContent = F[state.formation].bench ? 'Benken er tom. Alle er staffet.'
     : (b.includes('birger') && b.includes('stian'))
-    ? 'Haugen & Haugen starter her av habilitetshensyn.'
+    ? (b.includes('lasse') ? 'Haugen & Haugen av habilitetshensyn. Lasse er på onboarding.' : 'Haugen & Haugen starter her av habilitetshensyn.')
     : 'Ikke staffet. Tilgjengelig for nye oppdrag.';
 }
 function renderOpp(){
@@ -746,11 +748,11 @@ $('#oChips').addEventListener('click', e => {
 });
 
 // rotation: 8-syklus inkludert benken
-const ROT = {1:0, 0:5, 5:4, 4:6, 6:7, 7:3, 3:2, 2:1};
+const ROT = {1:0, 0:5, 5:4, 4:6, 6:7, 7:8, 8:3, 3:2, 2:1};
 $('#rotBtn').addEventListener('click', () => {
-  const n = new Array(8);
+  const n = new Array(DEFAULT_SLOTS.length);
   Object.entries(ROT).forEach(([from,to]) => { n[to] = state.slots[from]; });
-  const inId = state.slots[7], outId = state.slots[4];
+  const inId = state.slots[8], outId = state.slots[4];
   state.slots = n; state.rot++;
   setFormationPositions(state.formation); placeAll(); renderBench();
   log(`Staffing-rotasjon #${state.rot}: <b>${P[inId].first}</b> staffes inn, <b>${P[outId].first}</b> går på benken. Utilization: 100 %.`);
@@ -880,7 +882,7 @@ function freshState(){
 }
 function start(data){
   state = freshState();
-  if (data && data.slots && data.slots.length === 8) {
+  if (data && data.slots && data.slots.length === DEFAULT_SLOTS.length) {
     Object.assign(state, data, {drawing:false});
   }
   renderFormationUI(); renderBench(); renderOpp();
