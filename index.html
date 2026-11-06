@@ -324,7 +324,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
   <section class="slide" id="taktikk" aria-labelledby="taktikk-h">
     <div class="slide-head">
       <p class="kicker">Taktikktavle</p>
-      <h2 id="taktikk-h">Seks formasjoner fra workshopen. To av dem er lovlige.</h2>
+      <h2 id="taktikk-h">Åtte formasjoner fra workshopen. To av dem er lovlige.</h2>
     </div>
     <div class="tactics">
       <div class="board-col">
@@ -521,7 +521,15 @@ const F = {
   scope:{name:'Scope creep', tag:'∞', risk:['r','Kritisk'], owner:'Kunden, ifølge oss',
     desc:'Startet som et enkelt mottak. Nå står vi på motstanderens banehalvdel og har lovet dem en ny CRM-løsning.',
     effect:'Regelbrudd: ja. Change request: sendt.',
-    pos:[[88,55],[66,55],[44,55],[22,55],[10,40],[36,42]]}
+    pos:[[88,55],[66,55],[44,55],[22,55],[10,40],[36,42]]},
+  hybrid:{name:'Hybrid arbeid', tag:'3+3', risk:['a','Middels'], owner:'Den som sendte Teams-invitasjonen',
+    desc:'Tre spillere er på banen. Tre jobber hjemmefra fra sidelinjen, med kamera av. De er med på møtet, men ikke på poenget.',
+    effect:'God balanse mellom jobb og fritid. Dårlig balanse på banen.',
+    pos:[[72,165],[72,115],[42,140],[8,112],[8,140],[8,168]]},
+  util:{name:'Utilization 112 %', tag:'8-0', risk:['r','Kritisk'], owner:'Ressursplanleggeren',
+    desc:'Alle åtte står på banen samtidig, og benken er tom. Helt ulovlig, men ingen er ufakturerbare.',
+    effect:'Rekordhøy utnyttelse. Dommeren er ikke enig.',
+    pos:[[84,160],[84,115],[62,115],[16,115],[16,160],[38,160]], bench:[[38,115],[62,160]]}
 };
 
 const OPP = {
@@ -689,7 +697,7 @@ function placeAll(){ Object.keys(toks).forEach(place); }
 
 function setFormationPositions(key){
   const f = F[key];
-  state.slots.forEach((id,i) => { state.pos[id] = (i < 6 ? f.pos[i] : BENCH[i-6]).slice(); });
+  state.slots.forEach((id,i) => { state.pos[id] = (i < 6 ? f.pos[i] : (f.bench ? f.bench[i-6] : BENCH[i-6])).slice(); });
 }
 function renderFormationUI(){
   const f = F[state.formation];
@@ -703,7 +711,8 @@ function renderFormationUI(){
 }
 function renderBench(){
   const b = state.slots.slice(6);
-  $('#benchText').textContent = (b.includes('birger') && b.includes('stian'))
+  $('#benchText').textContent = F[state.formation].bench ? 'Benken er tom. Alle er staffet.'
+    : (b.includes('birger') && b.includes('stian'))
     ? 'Haugen & Haugen starter her av habilitetshensyn.'
     : 'Ikke staffet. Tilgjengelig for nye oppdrag.';
 }
@@ -727,7 +736,7 @@ $('#fChips').addEventListener('click', e => {
   const c = e.target.closest('.chip'); if(!c) return;
   state.formation = c.dataset.k;
   setFormationPositions(state.formation);
-  renderFormationUI(); placeAll();
+  renderFormationUI(); renderBench(); placeAll();
   log(`Formasjon <b>«${esc(F[state.formation].name)}»</b> innført. Endringsledelse pågår.`);
 });
 $('#oChips').addEventListener('click', e => {
