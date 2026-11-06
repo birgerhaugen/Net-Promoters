@@ -104,6 +104,7 @@ main{padding:8px 0 24px}
 .badge{align-self:flex-start;font:600 10.5px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;background:var(--ink);color:#fff;padding:3px 7px;border-radius:3px}
 .pc-name{font-weight:800;font-size:15px;line-height:1.2}
 .pc-title{font:500 11px/1.35 var(--f-mono);text-transform:uppercase;color:var(--court-ink);letter-spacing:.03em;margin-top:3px}
+.pc-dept{font:400 11px/1.35 var(--f-mono);color:var(--muted);margin-top:2px}
 .pc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:7px 0}
 .st{display:flex;align-items:baseline;gap:3px}
 .st b{font-family:var(--f-display);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
@@ -207,6 +208,38 @@ main{padding:8px 0 24px}
 footer{padding:10px 0 40px}
 footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:80ch}
 
+
+/* ---------- Org chart ---------- */
+.org{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch}
+.org-col{display:flex;flex-direction:column;gap:10px}
+.court-col{justify-content:space-between}
+.org-col h3{font:600 12px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 2px}
+.tier{display:grid;grid-template-columns:128px 1fr;gap:12px;align-items:center;background:#F2F4F6;border-radius:6px;padding:10px 12px;min-height:54px}
+.tl{font:600 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.tchips{display:flex;flex-wrap:wrap;gap:6px}
+.pchip{background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:5px 11px;border-radius:999px}
+.pchip.hot{background:var(--court);color:var(--ink)}
+.org-flip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--court-ink);font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;text-align:center;max-width:80px}
+.org-flip svg{width:34px;height:34px}
+@media (max-width:760px){.org{grid-template-columns:1fr}.org-flip{flex-direction:row;max-width:none}.org-flip svg{width:24px;height:24px}}
+
+/* ---------- Quiz ---------- */
+.quiz{max-width:760px}
+.qprog{display:flex;align-items:center;gap:12px;font:500 12px var(--f-mono);color:var(--muted);margin:0 0 10px}
+.qbar{flex:1;max-width:220px;height:6px;background:#E4E8EC;border-radius:3px;overflow:hidden}
+.qbar i{display:block;height:100%;background:var(--court)}
+.qq{font-size:clamp(20px,2.4vw,26px);font-weight:800;line-height:1.25;margin:0 0 16px;letter-spacing:-.01em}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.qopts{grid-template-columns:1fr}}
+.qopt{text-align:left;border:1.5px solid #C3CAD3;background:var(--slide);border-radius:8px;padding:14px 16px;font-weight:600;font-size:15px;line-height:1.35;cursor:pointer;display:flex;gap:12px;align-items:flex-start}
+.qopt:hover{border-color:var(--ink);background:#F7F8FA}
+.qopt b{font:600 12px/1.6 var(--f-mono);color:var(--court-ink)}
+.qres{display:grid;grid-template-columns:minmax(0,240px) 1fr;gap:24px;align-items:start}
+@media (max-width:560px){.qres{grid-template-columns:1fr}}
+.qres h3{font-family:var(--f-display);font-size:clamp(34px,5vw,48px);font-weight:900;text-transform:uppercase;line-height:.95;margin:0 0 10px;color:var(--ink)}
+.qres p{margin:0 0 12px;max-width:52ch}
+.qres .kicker{margin-bottom:6px}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .tok,.board.slow .tok,.pcard{transition:none !important}
@@ -229,13 +262,15 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
       <div class="brand"><span class="brand-mark">NP</span><span>Net Promoters <span class="sub">· EY Consulting</span></span></div>
       <nav aria-label="Seksjoner">
         <a href="#laget">Laget</a>
+        <a href="#orgkart">Orgkart</a>
         <a href="#taktikk">Taktikk</a>
+        <a href="#quiz">Quiz</a>
         <a href="#kampplan">Kampplan</a>
         <a href="#raci">RACI</a>
       </nav>
     </div>
     <div class="hero-body">
-      <p class="eyebrow">Volleyballturnering 2026 · Statement_of_Work_v3.2_FINAL_final(2).pptx</p>
+      <p class="eyebrow">Volleyballturnering FY27 · CNS · Statement_of_Work_v3.2_FINAL_final(2).pptx</p>
       <div class="h1wrap">
         <h1>Net<br>Promoters</h1>
         <div class="stamp" aria-hidden="true">Utkast<br>til diskusjon</div>
@@ -248,6 +283,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
           <h2 id="exec-h">Executive summary</h2>
           <ul>
             <li>Consulting stiller med <b>åtte spillere, null treningsøkter</b> og én svært gjennomarbeidet nettside.</li>
+            <li>Laget er tverrfaglig: tre fra Risk, to fra People, to fra Business og én fra Technology. Vi er derfor svært risikoaverse, men trives godt.</li>
             <li>Analysen viser betydelig oppside i å treffe ballen. Vi anbefaler å gjøre det oftere.</li>
             <li>Motstanderne har tung kompetanse på revisjon, skatt og verdsettelse. Ingen av delene er volleyball.</li>
             <li><b>Anbefaling:</b> Vinne. <b>Neste steg:</b> Ta feiringen offline etter siste kamp.</li>
@@ -279,7 +315,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
   <section class="slide" id="laget" aria-labelledby="laget-h">
     <div class="slide-head">
       <p class="kicker">Staffing-oversikt</p>
-      <h2 id="laget-h">Åtte spillere med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
+      <h2 id="laget-h">Åtte spillere fra fire avdelinger, med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
     </div>
     <div class="cards" id="cards"></div>
     <ul class="legend" aria-label="Forklaring på stats">
@@ -291,6 +327,32 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
       <li><b>BUZ</b> Buzzwords per minutt</li>
     </ul>
     <div class="slide-foot"><span>Kilde: Selvrapporterte data, kalibrert i plenum. Stats er justert for inflasjon og ego.</span><span>Net Promoters · 1</span></div>
+  </section>
+
+  <!-- ORGKART -->
+  <section class="slide" id="orgkart" aria-labelledby="org-h">
+    <div class="slide-head">
+      <p class="kicker">Organisasjonskart</p>
+      <h2 id="org-h">På banen snus organisasjonskartet. Intern styrer spillet, Director sitter på benken.</h2>
+    </div>
+    <div class="org">
+      <div class="org-col">
+        <h3>På kontoret</h3>
+        <div class="tier"><span class="tl">Director</span><span class="tchips"><span class="pchip">Stian</span></span></div>
+        <div class="tier"><span class="tl">Senior Manager</span><span class="tchips"><span class="pchip">Mathias</span></span></div>
+        <div class="tier"><span class="tl">Manager</span><span class="tchips"><span class="pchip">Birger</span></span></div>
+        <div class="tier"><span class="tl">Resten av laget</span><span class="tchips"><span class="pchip">Abigail</span><span class="pchip">Iselin</span><span class="pchip">Jacob</span><span class="pchip">Thea</span></span></div>
+        <div class="tier"><span class="tl">Intern</span><span class="tchips"><span class="pchip hot">Sine</span></span></div>
+      </div>
+      <div class="org-flip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v14M3 14l4 4 4-4M17 20V6M13 10l4-4 4 4"/></svg><span>Snudd på hodet</span></div>
+      <div class="org-col court-col">
+        <h3>På banen</h3>
+        <div class="tier"><span class="tl">Styrer spillet</span><span class="tchips"><span class="pchip hot">Sine</span></span></div>
+        <div class="tier"><span class="tl">Får ballen hvis Sine vil</span><span class="tchips"><span class="pchip">Abigail</span><span class="pchip">Iselin</span><span class="pchip">Jacob</span><span class="pchip">Mathias</span><span class="pchip">Thea</span></span></div>
+        <div class="tier"><span class="tl">Benken</span><span class="tchips"><span class="pchip">Birger</span><span class="pchip">Stian</span></span></div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Kilde: EYs organisasjonskart og Sines oppspill. Stian godkjenner fortsatt timelistene fra benken.</span><span>Net Promoters · 2</span></div>
   </section>
 
   <!-- 02 TAKTIKK -->
@@ -374,7 +436,17 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
         </div>
       </div>
     </div>
-    <div class="slide-foot"><span>Kilde: Taktikkworkshop (to timer, ingen ball til stede). Formasjonene er ikke godkjent av Norges Volleyballforbund.</span><span>Net Promoters · 2</span></div>
+    <div class="slide-foot"><span>Kilde: Taktikkworkshop (to timer, ingen ball til stede). Formasjonene er ikke godkjent av Norges Volleyballforbund.</span><span>Net Promoters · 3</span></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="slide" id="quiz" aria-labelledby="quiz-h">
+    <div class="slide-head">
+      <p class="kicker">Selvevaluering</p>
+      <h2 id="quiz-h">Hvilken spiller er du? Fem spørsmål, null fakturerbare timer</h2>
+    </div>
+    <div class="quiz" id="quizBox" aria-live="polite"></div>
+    <div class="slide-foot"><span>Kilde: Validert psykometrisk modell (utviklet i lunsjen). Resultatet er ikke grunnlag for medarbeidersamtale.</span><span>Net Promoters · 4</span></div>
   </section>
 
   <!-- 03 KAMPPLAN -->
@@ -392,7 +464,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
       <span><i class="ms" style="background:var(--court)"></i>Milepæl</span>
       <span><i style="background:repeating-linear-gradient(135deg,var(--navy) 0 4px,#2C5A8E 4px 8px)"></i>Ubestemt varighet</span>
     </div>
-    <div class="slide-foot"><span>Kilde: PMO. Tidslinjen er indikativ og oppdateres i hvert statusmøte.</span><span>Net Promoters · 3</span></div>
+    <div class="slide-foot"><span>Kilde: PMO. Tidslinjen er indikativ og oppdateres i hvert statusmøte.</span><span>Net Promoters · 5</span></div>
   </section>
 
   <!-- 04 RACI -->
@@ -417,14 +489,15 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
           <tr><td>Serve i settball</td><td>Abigail</td><td>Abigail</td><td>Ingen. Hun vet hva hun gjør.</td><td>Motstanderen, for sent</td></tr>
           <tr><td>Smash fra kant</td><td>Mathias</td><td>Sine, som hevet</td><td>Ikke nødvendig</td><td>Gulvet på andre siden</td></tr>
           <tr><td>Ball langt ut av banen</td><td>Iselin</td><td>Iselin</td><td>Ikke nødvendig</td><td>Resten, som heier</td></tr>
-          <tr><td>Tvilsom dommeravgjørelse</td><td>Jacob</td><td>Kapteinen</td><td>Tax &amp; Law, mot honorar</td><td>Dommeren, med respekt</td></tr>
+          <tr><td>Tvilsom dommeravgjørelse</td><td>Jacob</td><td>Stian, som Director</td><td>Tax &amp; Law, mot honorar</td><td>Dommeren, med respekt</td></tr>
           <tr><td>Siste ball i tiebreak</td><td>Stian</td><td>Stian</td><td>Det er ikke tid</td><td>Hele hallen</td></tr>
+          <tr><td>Godkjenning av timer brukt på turneringen</td><td>Alle</td><td>Stian</td><td>Mathias, som Senior Manager</td><td>Ingen. Det er null timer.</td></tr>
           <tr><td>Tapt poeng</td><td>Ingen</td><td class="q">«Markedsforholdene»</td><td>Ikke nødvendig</td><td>Styringsgruppen, neste kvartal</td></tr>
           <tr><td>Feiring etter poeng</td><td>Alle</td><td>Birger</td><td>Thea, som har koreografien</td><td>Hele EY, via Teams</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="slide-foot"><span>Kilde: Interessentworkshop (45 min, utsatt fire ganger). R = Responsible, A = Accountable, C = Consulted, I = Informed.</span><span>Net Promoters · 4</span></div>
+    <div class="slide-foot"><span>Kilde: Interessentworkshop (45 min, utsatt fire ganger). R = Responsible, A = Accountable, C = Consulted, I = Informed.</span><span>Net Promoters · 6</span></div>
   </section>
 
 </main>
@@ -440,23 +513,25 @@ const $ = s => document.querySelector(s);
 /* ---------------- Data ---------------- */
 const STAT_KEYS = ['SMA','SRV','MOT','EXL','PPT','BUZ'];
 const PLAYERS = [
-  {id:'abigail', first:'Abigail', name:'Abigail S Baguio', no:7, pos:'KANT', posFull:'Kantspiller', title:'Chief Serve Officer', ovr:89, st:[84,95,86,90,87,81],
-   power:'Serven treffer oftere enn noen budsjettprognose vi har laget.', quote:'Jeg tar den. Og jeg tar notater.'},
-  {id:'birger', first:'Birger', name:'Birger Haugen', no:10, pos:'KAP', posFull:'Benk-strateg', title:'PMO & Kaptein', ovr:79, st:[72,75,74,97,95,93],
+  {id:'abigail', first:'Abigail', name:'Abigail S Baguio', no:7, pos:'KANT', dept:'People Consulting', title:'Chief Serve Officer', ovr:89, st:[84,95,86,90,87,81],
+   power:'Serven treffer oftere enn noen budsjettprognose vi har laget. Sjekker trivselen på laget mellom hvert sett.', quote:'Jeg tar den. Og jeg tar notater.'},
+  {id:'birger', first:'Birger', name:'Birger Haugen', no:10, pos:'KAP', dept:'Business Consulting', title:'PMO & Kaptein', ovr:79, st:[72,75,74,97,95,93],
    power:'Har laget Gantt-plan for oppvarmingen og RACI for drikkeflaskene. Resten av skillpoengene gikk til PMO.', quote:'Kan vi ta en kjapp statusrunde mellom hvert poeng?', badge:'Kaptein · laget siden'},
-  {id:'iselin', first:'Iselin', name:'Iselin Helmikstøl', no:2, pos:'LIB', posFull:'Libero', title:'Head of Risk Management', ovr:89, st:[70,82,96,89,85,79],
-   power:'Fanger alt: baller, risikoer og scope creep. Spiller i egen trøyefarge, som en uavhengig kvalitetskontroll.', quote:'Den er mitigert.', libero:true},
-  {id:'jacob', first:'Jacob', name:'Jacob Somby', no:12, pos:'MID', posFull:'Midtblokker', title:'Stakeholder Blocker', ovr:87, st:[86,79,78,88,84,90],
-   power:'Sier nei til alt som kommer over nettet. Alltid konstruktivt, alltid med et alternativ.', quote:'Jeg hører hva du sier. Svaret er fortsatt nei.'},
-  {id:'mathias', first:'Mathias', name:'Mathias K Førland', no:9, pos:'KANT', posFull:'Kantspiller', title:'Delivery Lead', ovr:88, st:[92,83,84,87,80,82],
-   power:'Leverer smasher på tid, på budsjett og innenfor scope.', quote:'Deliverable levert. Hva er neste?'},
-  {id:'sine', first:'Sine', name:'Sine Viste Fagerland', no:3, pos:'OPP', posFull:'Oppspiller', title:'Engagement Manager', ovr:90, st:[78,84,88,91,89,86],
-   power:'Setter opp andre for suksess. Bokstavelig talt.', quote:'Jeg legger den klar, så tar du æren.'},
-  {id:'stian', first:'Stian', name:'Stian Haugen', no:11, pos:'MID', posFull:'Midtblokker', title:'Subject Matter Expert', ovr:87, st:[88,80,81,85,83,84],
-   power:'Hentes inn når det brenner. Hopper høyest og vet alltid hvor ballen kommer.', quote:'Dette har jeg sett på et tidligere prosjekt.'},
-  {id:'thea', first:'Thea', name:'Thea K Nygaard', no:5, pos:'DIA', posFull:'Diagonal', title:'Transformation Lead', ovr:88, st:[90,85,80,86,92,88],
-   power:'Gjør en desperat redning om til et angrep og kaller det ende-til-ende-transformasjon.', quote:'Hva om vi tenker helt nytt rundt denne ballen?'}
+  {id:'iselin', first:'Iselin', name:'Iselin Helmikstøl', no:2, pos:'LIB', dept:'Business Consulting', title:'Process Excellence Lead', ovr:89, st:[70,82,96,89,85,79],
+   power:'Fanger alt og fjerner all sløsing i prosessen. Spiller i egen trøyefarge, som en uavhengig kvalitetskontroll.', quote:'Den prosessen har jeg allerede forbedret.', libero:true},
+  {id:'jacob', first:'Jacob', name:'Jacob Somby', no:12, pos:'MID', dept:'Risk Consulting', title:'Stakeholder Blocker', ovr:87, st:[86,79,78,88,84,90],
+   power:'Sier nei til alt som kommer over nettet, med en risikovurdering som begrunner det.', quote:'Jeg hører hva du sier. Svaret er fortsatt nei.'},
+  {id:'mathias', first:'Mathias', name:'Mathias K Førland', no:9, pos:'KANT', dept:'Technology Consulting', title:'Delivery Lead', ovr:88, st:[92,83,84,87,80,82],
+   power:'Leverer smasher på tid og budsjett. Har allerede migrert hele angrepet til skyen.', quote:'Har du prøvd å skru ballen av og på?'},
+  {id:'sine', first:'Sine', name:'Sine Viste Fagerland', no:3, pos:'OPP', dept:'People Consulting', title:'Engagement Manager', ovr:90, st:[78,84,88,91,89,86],
+   power:'Bestemmer hvem som får ballen, Director inkludert. Formelt intern, i praksis sjef på banen.', quote:'Jeg legger den klar, så tar du æren.'},
+  {id:'stian', first:'Stian', name:'Stian Haugen', no:11, pos:'MID', dept:'Risk Consulting', title:'Executive Sponsor', ovr:87, st:[88,80,81,85,83,84],
+   power:'Hentes inn når det brenner. Godkjenner alle smasher og signerer for restrisikoen.', quote:'Dette har jeg sett på et tidligere prosjekt.'},
+  {id:'thea', first:'Thea', name:'Thea K Nygaard', no:5, pos:'DIA', dept:'Risk Consulting', title:'Three Lines of Defence', ovr:88, st:[90,85,80,86,92,88],
+   power:'Første, andre og tredje forsvarslinje i én og samme spiller. Gjør redninger om til angrep.', quote:'Den risikoen aksepterer jeg ikke.'}
 ];
+const POSFULL = {KANT:'Kantspiller', KAP:'Kaptein', LIB:'Libero', MID:'Midtblokker', OPP:'Oppspiller', DIA:'Diagonal'};
+PLAYERS.forEach(p => p.posFull = POSFULL[p.pos]);
 const P = Object.fromEntries(PLAYERS.map(p => [p.id, p]));
 
 // slots: 0=pos1 (bak høyre/server) 1=pos2 2=pos3 3=pos4 4=pos5 5=pos6 6,7=benk
@@ -532,7 +607,7 @@ const SPEECH = {
 
 /* ---------------- Cards ---------------- */
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-$('#cards').innerHTML = PLAYERS.map(p => `
+const cardHTML = p => `
   <article class="pcard${p.libero?' libero':''}">
     <div class="pc-top">
       <div class="pc-ovr">${p.ovr}<small>${p.pos}</small></div>
@@ -540,13 +615,69 @@ $('#cards').innerHTML = PLAYERS.map(p => `
     </div>
     <div class="pc-body">
       ${p.badge?`<span class="badge">${esc(p.badge)}</span>`:''}
-      <div><div class="pc-name">${esc(p.name)}</div><div class="pc-title">${esc(p.title)} · ${esc(p.posFull)}</div></div>
+      <div><div class="pc-name">${esc(p.name)}</div><div class="pc-title">${esc(p.title)}</div><div class="pc-dept">${esc(p.dept)}</div></div>
       <div class="pc-stats">${p.st.map((v,i)=>`<div class="st"><b>${v}</b><span>${STAT_KEYS[i]}</span></div>`).join('')}</div>
       <div class="pc-power"><span>Superkraft</span>${esc(p.power)}</div>
       <blockquote class="pc-quote">«${esc(p.quote)}»</blockquote>
       <div class="pc-foot">Timepris 0 kr · pro bono</div>
     </div>
-  </article>`).join('');
+  </article>`;
+$('#cards').innerHTML = PLAYERS.map(cardHTML).join('');
+
+
+/* ---------------- Quiz ---------------- */
+const QUIZ = [
+  {q:'Det er mandag kl. 08.00. Hva gjør du først?', o:[
+    ['Oppdaterer Gantt-planen', ['birger','iselin']],
+    ['Sjekker hvordan alle har det', ['abigail','sine']],
+    ['Leser risikoregisteret', ['thea','jacob']],
+    ['Har allerede vært i tre møter', ['stian','mathias']]]},
+  {q:'Ballen kommer rett mot deg. Hva skjer?', o:[
+    ['Jeg tar den, og noterer det', ['abigail','iselin']],
+    ['Jeg sier nei, konstruktivt', ['jacob','stian']],
+    ['Jeg legger den klar for noen andre', ['sine','birger']],
+    ['Smash. Levert.', ['mathias','thea']]]},
+  {q:'Hva er favorittordet ditt i et møte?', o:[
+    ['«Synergi»', ['birger','sine']],
+    ['«Restrisiko»', ['thea','stian']],
+    ['«Skalerbart»', ['mathias','iselin']],
+    ['«Hvordan lander det for deg?»', ['abigail','jacob']]]},
+  {q:'Kunden vil endre scope midt i prosjektet. Du …', o:[
+    ['lager en change request', ['birger','jacob']],
+    ['tar det offline', ['stian','abigail']],
+    ['har allerede løst det med en ny prosess', ['iselin','thea']],
+    ['sier ja og bygger det i skyen', ['mathias','sine']]]},
+  {q:'Hva gjør du i timeouten?', o:[
+    ['Holder motivasjonstale', ['birger','abigail']],
+    ['Tegner piler på tavla', ['sine','mathias']],
+    ['Vurderer risikoen ved neste serve', ['jacob','thea']],
+    ['Godkjenner timelister', ['stian','iselin']]]}
+];
+let qi = 0, qscore = {}, qlast = {};
+function renderQuiz(){
+  const box = $('#quizBox');
+  if (qi < QUIZ.length) {
+    const it = QUIZ[qi];
+    box.innerHTML = `<p class="qprog">Spørsmål ${qi+1} av ${QUIZ.length}<span class="qbar"><i style="width:${qi/QUIZ.length*100}%"></i></span></p>
+      <h3 class="qq">${esc(it.q)}</h3>
+      <div class="qopts">${it.o.map((o,i)=>`<button type="button" class="qopt" data-i="${i}"><b>${'ABCD'[i]}</b><span>${esc(o[0])}</span></button>`).join('')}</div>`;
+    return;
+  }
+  const max = Math.max(...PLAYERS.map(p => qscore[p.id]||0));
+  const best = PLAYERS.filter(p => (qscore[p.id]||0) === max).sort((a,b) => (qlast[b.id]||0) - (qlast[a.id]||0))[0];
+  box.innerHTML = `<div class="qres">${cardHTML(best)}
+    <div><p class="kicker">Resultat</p><h3>Du er ${esc(best.first)}</h3>
+    <p><b>${esc(best.title)}</b>, ${esc(best.dept)}. ${esc(best.power)}</p>
+    <p>Treff: ${max} av ${QUIZ.length}. Resultatet er endelig og kan ikke ankes til Tax &amp; Law.</p>
+    <button type="button" class="btn primary" id="quizAgain">Ta quizen på nytt</button></div></div>`;
+}
+$('#quizBox').addEventListener('click', e => {
+  if (e.target.closest('#quizAgain')) { qi = 0; qscore = {}; qlast = {}; renderQuiz(); return; }
+  const b = e.target.closest('.qopt'); if (!b) return;
+  QUIZ[qi].o[+b.dataset.i][1].forEach(id => { qscore[id] = (qscore[id]||0) + 1; qlast[id] = qi + 1; });
+  qi++; renderQuiz();
+});
+renderQuiz();
 
 /* ---------------- Gantt ---------------- */
 (function(){
