@@ -270,7 +270,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
           <h2 id="exec-h">Executive summary</h2>
           <ul>
             <li>Consulting stiller med <b>åtte spillere, null treningsøkter</b> og én svært gjennomarbeidet nettside.</li>
-            <li>Laget er tverrfaglig: tre fra Risk, to fra People, to fra Business og én fra Technology. Vi er derfor svært risikoaverse, men trives godt.</li>
+            <li>Laget er tverrfaglig: seks fagområder fordelt på åtte spillere. Vi er altså regulert, risikovurdert, cybersikret og godt endringsledet.</li>
             <li>Analysen viser betydelig oppside i å treffe ballen. Vi anbefaler å gjøre det oftere.</li>
             <li>Motstanderne har tung kompetanse på revisjon, skatt og verdsettelse. Ingen av delene er volleyball.</li>
             <li><b>Anbefaling:</b> Vinne. <b>Neste steg:</b> Ta feiringen offline etter siste kamp.</li>
@@ -306,7 +306,7 @@ footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:8
   <section class="slide" id="laget" aria-labelledby="laget-h">
     <div class="slide-head">
       <p class="kicker">Staffing-oversikt</p>
-      <h2 id="laget-h">Åtte spillere fra fire avdelinger, med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
+      <h2 id="laget-h">Åtte spillere fra seks fagområder, med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
     </div>
     <div class="cards" id="cards"></div>
     <ul class="legend" aria-label="Forklaring på stats">
@@ -478,22 +478,14 @@ const $ = s => document.querySelector(s);
 /* ---------------- Data ---------------- */
 const STAT_KEYS = ['SMA','SRV','MOT','EXL','PPT','BUZ'];
 const PLAYERS = [
-  {id:'abigail', first:'Abigail', name:'Abigail S Baguio', no:7, pos:'KANT', dept:'People Consulting', title:'Chief Serve Officer', ovr:89, st:[84,95,86,90,87,81],
-   power:'Serven treffer oftere enn noen budsjettprognose vi har laget. Sjekker trivselen på laget mellom hvert sett.', quote:'Jeg tar den. Og jeg tar notater.'},
-  {id:'birger', first:'Birger', name:'Birger Haugen', no:10, pos:'KAP', dept:'Business Consulting', title:'PMO & Kaptein', ovr:79, st:[72,75,74,97,95,93],
-   power:'Har laget Gantt-plan for oppvarmingen og RACI for drikkeflaskene. Resten av skillpoengene gikk til PMO.', quote:'Kan vi ta en kjapp statusrunde mellom hvert poeng?', badge:'Kaptein · laget siden'},
-  {id:'iselin', first:'Iselin', name:'Iselin Helmikstøl', no:2, pos:'LIB', dept:'Business Consulting', title:'Process Excellence Lead', ovr:89, st:[70,82,96,89,85,79],
-   power:'Fanger alt og fjerner all sløsing i prosessen. Spiller i egen trøyefarge, som en uavhengig kvalitetskontroll.', quote:'Den prosessen har jeg allerede forbedret.', libero:true},
-  {id:'jacob', first:'Jacob', name:'Jacob Somby', no:12, pos:'MID', dept:'Risk Consulting', title:'Stakeholder Blocker', ovr:87, st:[86,79,78,88,84,90],
-   power:'Sier nei til alt som kommer over nettet, med en risikovurdering som begrunner det.', quote:'Jeg hører hva du sier. Svaret er fortsatt nei.'},
-  {id:'mathias', first:'Mathias', name:'Mathias K Førland', no:9, pos:'KANT', dept:'Technology Consulting', title:'Delivery Lead', ovr:88, st:[92,83,84,87,80,82],
-   power:'Leverer smasher på tid og budsjett. Har allerede migrert hele angrepet til skyen.', quote:'Har du prøvd å skru ballen av og på?'},
-  {id:'sine', first:'Sine', name:'Sine Viste Fagerland', no:3, pos:'OPP', dept:'People Consulting', title:'Engagement Manager', ovr:90, st:[78,84,88,91,89,86],
-   power:'Bestemmer hvem som får ballen, Director inkludert. Formelt intern, i praksis sjef på banen.', quote:'Jeg legger den klar, så tar du æren.'},
-  {id:'stian', first:'Stian', name:'Stian Haugen', no:11, pos:'MID', dept:'Risk Consulting', title:'Executive Sponsor', ovr:87, st:[88,80,81,85,83,84],
-   power:'Hentes inn når det brenner. Godkjenner alle smasher og signerer for restrisikoen.', quote:'Dette har jeg sett på et tidligere prosjekt.'},
-  {id:'thea', first:'Thea', name:'Thea K Nygaard', no:5, pos:'DIA', dept:'Risk Consulting', title:'Three Lines of Defence', ovr:88, st:[90,85,80,86,92,88],
-   power:'Første, andre og tredje forsvarslinje i én og samme spiller. Gjør redninger om til angrep.', quote:'Den risikoen aksepterer jeg ikke.'}
+  { id: 'abigail', first: 'Abigail', name: 'Abigail S Baguio', no: 7, pos: 'KANT', dept: 'People Consulting', title: 'Chief Serve Officer', ovr: 89, st: [84, 95, 86, 90, 87, 81], power: 'Sørger for rett person med rett ferdighet på rett plass på banen. Tar trivselsmåling mellom hvert sett.', quote: 'Jeg tar den. Og jeg tar notater.' },
+  { id: 'birger', first: 'Birger', name: 'Birger Haugen', no: 10, pos: 'KAP', dept: 'Supply Chain & Operations', title: 'PMO & Kaptein', ovr: 79, st: [72, 75, 74, 97, 95, 93], power: 'Har Gantt-plan for oppvarmingen og ende-til-ende forsyningskjede for drikkeflasker. Baller leveres just-in-time.', quote: 'Kan vi ta en kjapp statusrunde mellom hvert poeng?', badge: 'Kaptein · laget siden' },
+  { id: 'iselin', first: 'Iselin', name: 'Iselin Helmikstøl', no: 2, pos: 'LIB', dept: 'Business Transformation', title: 'Transformation Lead', ovr: 89, st: [70, 82, 96, 89, 85, 79], power: 'Gjør forsvar om til angrep og strategi om til faktisk endring. Egen trøyefarge, som en uavhengig kvalitetskontroll.', quote: 'Hva er egentlig målbildet for denne ballen?', libero: true },
+  { id: 'jacob', first: 'Jacob', name: 'Jacob Somby', no: 12, pos: 'MID', dept: 'FSO', title: 'Stakeholder Blocker', ovr: 87, st: [86, 79, 78, 88, 84, 90], power: 'Sier nei til alt som kommer over nettet, med full regulatorisk dekning. Har allerede gjort KYC på hele motstanderlaget.', quote: 'Jeg hører hva du sier. Svaret er fortsatt nei.' },
+  { id: 'mathias', first: 'Mathias', name: 'Mathias K Førland', no: 9, pos: 'KANT', dept: 'Cyber', title: 'Ethical Hacker', ovr: 88, st: [92, 83, 84, 87, 80, 82], power: 'Finner hullet i motstanderens blokk med en kontrollert penetrasjonstest. Alltid med signert scope.', quote: 'Har blokken deres tofaktorautentisering?' },
+  { id: 'sine', first: 'Sine', name: 'Sine Viste Fagerland', no: 3, pos: 'OPP', dept: 'People Consulting', title: 'Engagement Manager', ovr: 90, st: [78, 84, 88, 91, 89, 86], power: 'Bestemmer hvem som får ballen, Director inkludert. Formelt intern, i praksis endringsleder på banen.', quote: 'Jeg legger den klar, så tar du æren.' },
+  { id: 'stian', first: 'Stian', name: 'Stian Haugen', no: 11, pos: 'MID', dept: 'FSO', title: 'Executive Sponsor', ovr: 87, st: [88, 80, 81, 85, 83, 84], power: 'Hentes inn når det brenner. Har alltid nok kapitalbuffer til å tåle et tapt sett.', quote: 'Dette har jeg sett på et tidligere prosjekt.' },
+  { id: 'thea', first: 'Thea', name: 'Thea K Nygaard', no: 5, pos: 'DIA', dept: 'Risk', title: 'Three Lines of Defence', ovr: 88, st: [90, 85, 80, 86, 92, 88], power: 'Første, andre og tredje forsvarslinje i én og samme spiller. Risikoappetitten for tapte baller er null.', quote: 'Den risikoen aksepterer jeg ikke.' }
 ];
 const POSFULL = {KANT:'Kantspiller', KAP:'Kaptein', LIB:'Libero', MID:'Midtblokker', OPP:'Oppspiller', DIA:'Diagonal'};
 PLAYERS.forEach(p => p.posFull = POSFULL[p.pos]);
@@ -611,7 +603,7 @@ const QUIZ = [
     ['lager en change request', ['birger','jacob']],
     ['tar det offline', ['stian','abigail']],
     ['har allerede løst det med en ny prosess', ['iselin','thea']],
-    ['sier ja og bygger det i skyen', ['mathias','sine']]]},
+    ['sier ja, etter en sikkerhetsvurdering og en endringsplan', ['mathias','sine']]]},
   {q:'Hva gjør du i timeouten?', o:[
     ['Holder motivasjonstale', ['birger','abigail']],
     ['Tegner piler på tavla', ['sine','mathias']],
