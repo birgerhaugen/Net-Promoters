@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net Promoters Volleyball</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: hver seksjon er en konsulent-slide (action title, innhold, kildefotnote, sidetall); banens oransje er den ene kraftige aksenten. */
+  --paper:#E6E9ED;
+  --slide:#FFFFFF;
+  --ink:#111827;
+  --muted:#596372;
+  --line:#D4D9DF;
+  --court:#E2672F;
+  --court-ink:#B44716;
+  --navy:#173A63;
+  --navy-deep:#0E2440;
+  --rag-g:#1F9D55;
+  --rag-a:#D99A0B;
+  --rag-r:#D2413A;
+  --f-display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --f-body:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{text-wrap:balance}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--court);outline-offset:2px}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
+.hero-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px;position:relative}
+@media (min-width:700px){.wrap{padding:0 28px}}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.01em}
+.brand-mark{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--court);color:var(--ink);font-family:var(--f-display);font-weight:900;font-size:15px}
+.brand .sub{color:#9FB0C6;font-weight:500}
+.topbar nav{display:flex;gap:4px;overflow-x:auto}
+.topbar nav a{color:#D7E0EA;text-decoration:none;font-size:14px;font-weight:600;padding:6px 10px;border-radius:6px;white-space:nowrap}
+.topbar nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.hero-body{padding:30px 0 44px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;color:#A9B8CB;margin:0;max-width:62ch}
+.h1wrap{position:relative}
+h1{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(72px,13.5vw,172px);line-height:.82;letter-spacing:-.005em;color:var(--court);margin:16px 0 14px}
+.stamp{position:absolute;right:0;top:6px;transform:rotate(-7deg);border:2.5px solid #FF8478;color:#FF8478;font:600 12px/1.25 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;padding:7px 10px;border-radius:4px;text-align:center}
+.tagline{font-weight:800;font-size:clamp(21px,3vw,30px);margin:0;letter-spacing:-.01em}
+.kickoff{font-family:var(--f-mono);font-size:12px;color:#A9B8CB;margin:8px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:30px}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}}
+.exec{background:var(--slide);color:var(--ink);border-radius:8px;padding:18px 20px 16px}
+.exec h2{font:600 12px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--court-ink);margin:0 0 10px}
+.exec ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.exec li{position:relative;padding-left:20px;font-size:15.5px;line-height:1.45}
+.exec li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:9px;background:var(--court)}
+.exec li b{font-weight:700}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.kpi b{font-family:var(--f-display);font-size:46px;font-weight:800;line-height:.95;font-variant-numeric:tabular-nums}
+.kpi .lbl{font-size:13px;color:#C9D4E1;line-height:1.35}
+.kpi-src{grid-column:1/-1;font-family:var(--f-mono);font-size:11px;color:#8FA1B7;margin:0}
+.timeout{margin-top:26px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-court{background:var(--court);color:var(--ink);border:0;border-radius:6px;padding:12px 16px;font-weight:800;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn-court:hover{background:#EC7A45}
+.speech{flex:1 1 320px;margin:0;font-size:17px;font-style:italic;color:#fff;border-left:3px solid var(--court);padding:2px 0 2px 14px;min-height:3em;max-width:68ch}
+.speech small{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;color:#8FA1B7;margin-top:4px}
+
+/* ---------- RAG ---------- */
+.rag{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 var(--f-mono);padding:4px 8px;border-radius:999px;white-space:nowrap;width:max-content}
+.rag::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.rag.g{background:#DDF2E5;color:#136B3A}
+.rag.a{background:#FBEFCF;color:#835800}
+.rag.r{background:#FADFDC;color:#A1281F}
+
+/* ---------- Slides ---------- */
+main{padding:8px 0 24px}
+.slide{background:var(--slide);border:1px solid var(--line);border-radius:4px;margin:26px auto;padding:26px clamp(16px,3.5vw,40px) 16px;scroll-margin-top:16px}
+.slide-head{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:22px}
+.kicker{font:600 12px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--court-ink);margin:0 0 6px}
+.slide-head h2{font-size:clamp(22px,2.8vw,30px);line-height:1.18;font-weight:800;margin:0;letter-spacing:-.015em;max-width:30em}
+.slide-foot{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);margin-top:24px;padding-top:10px;font:400 11px/1.5 var(--f-mono);color:var(--muted)}
+.slide-foot span:last-child{white-space:nowrap}
+
+/* ---------- Player cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+@media (max-width:380px){.cards{grid-template-columns:repeat(2,1fr);gap:10px}}
+.pcard{border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;background:var(--slide);transition:transform .2s ease,box-shadow .2s ease}
+.pcard:hover{transform:translateY(-3px);box-shadow:0 10px 24px -14px rgba(14,36,64,.45)}
+.pc-top{background:var(--navy);color:#fff;display:flex;justify-content:space-between;align-items:flex-start;padding:10px 12px 8px;min-height:84px}
+.pcard.libero .pc-top{background:var(--court);color:var(--ink)}
+.pc-ovr{font-family:var(--f-display);font-size:44px;line-height:.9;font-weight:900;font-variant-numeric:tabular-nums}
+.pc-ovr small{display:block;font-size:14px;letter-spacing:.1em;color:#FF9B6A;margin-top:4px}
+.pcard.libero .pc-ovr small{color:var(--ink)}
+.pc-no{font-family:var(--f-display);font-size:66px;font-weight:900;line-height:.82;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.7)}
+.pcard.libero .pc-no{-webkit-text-stroke-color:rgba(17,24,39,.6)}
+.pc-body{padding:11px 12px 12px;display:flex;flex-direction:column;gap:9px;flex:1}
+.badge{align-self:flex-start;font:600 10.5px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;background:var(--ink);color:#fff;padding:3px 7px;border-radius:3px}
+.pc-name{font-weight:800;font-size:15px;line-height:1.2}
+.pc-title{font:500 11px/1.35 var(--f-mono);text-transform:uppercase;color:var(--court-ink);letter-spacing:.03em;margin-top:3px}
+.pc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:7px 0}
+.st{display:flex;align-items:baseline;gap:3px}
+.st b{font-family:var(--f-display);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.st span{font:500 9.5px var(--f-mono);color:var(--muted)}
+.pc-power{font-size:13px;line-height:1.4}
+.pc-power span{display:block;font:600 10px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:2px}
+.pc-quote{margin:0;font-size:13px;line-height:1.4;font-style:italic;color:#38414F;border-left:3px solid var(--court);padding-left:8px}
+.pc-foot{margin-top:auto;font:400 10px var(--f-mono);color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 0;padding:0;list-style:none;font:400 12px var(--f-mono);color:var(--muted)}
+.legend b{color:var(--ink);font-weight:600}
+
+/* ---------- Tactics ---------- */
+.tactics{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:28px;align-items:start}
+@media (max-width:780px){.tactics{grid-template-columns:1fr}}
+.board-col{display:flex;flex-direction:column;gap:10px;align-items:center}
+.board{position:relative;width:min(100%,400px,calc((100svh - 120px) / 2.2));min-width:240px;aspect-ratio:100/220;border-radius:10px;overflow:hidden;background:var(--navy);container-type:inline-size;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.court{position:absolute;inset:0;width:100%;height:100%;display:block}
+.board-txt{position:absolute;left:0;right:0;text-align:center;pointer-events:none;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.55);font-size:clamp(10px,4cqw,15px);transform:translateY(-50%)}
+.bench-note{position:absolute;left:6%;width:44%;top:89.2%;pointer-events:none;color:#E6ECF3;font-size:clamp(8.5px,2.9cqw,11.5px);line-height:1.25}
+.bench-note b{display:block;font-family:var(--f-display);font-size:clamp(12px,4.6cqw,17px);letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.tok{position:absolute;left:0;top:0;--d:clamp(25px,10cqw,38px);width:var(--d);height:var(--d);margin-left:calc(var(--d) / -2);margin-top:calc(var(--d) / -2);display:block;cursor:grab;touch-action:none;z-index:2;transition:left .6s cubic-bezier(.2,.8,.2,1),top .6s cubic-bezier(.2,.8,.2,1)}
+.board.slow .tok{transition-duration:2.4s}
+.tok.dragging{transition:none;cursor:grabbing;z-index:5}
+.tok:focus-visible{outline:none}
+.tok:focus-visible .disc{outline:3px solid #fff;outline-offset:2px}
+.tok .disc{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--navy-deep);color:#fff;border:2px solid #fff;font-family:var(--f-display);font-weight:900;font-size:calc(var(--d) * .5);line-height:1;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+.tok.lib .disc{background:#fff;color:var(--court-ink);border-color:var(--navy-deep)}
+.tok .nm{position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);background:rgba(14,36,64,.85);color:#fff;font:600 clamp(8.5px,3cqw,11.5px)/1.2 var(--f-body);padding:1px 5px;border-radius:3px;white-space:nowrap;pointer-events:none}
+.tok.opp{--d:clamp(22px,8.5cqw,32px)}
+.tok.opp .disc{border-radius:6px;background:#3A424F;border-color:#C9CFD6;font-family:var(--f-mono);font-weight:600;font-size:calc(var(--d) * .3)}
+.tok.ball{--d:clamp(18px,7cqw,26px);z-index:4}
+.tok.ball .disc{background:#fff;border:0;padding:0;overflow:hidden}
+.tok.ball svg{width:100%;height:100%;display:block}
+#draw{position:absolute;inset:0;width:100%;height:100%;z-index:6;pointer-events:none}
+.board.drawing #draw{pointer-events:auto;cursor:crosshair;touch-action:none}
+.board.drawing{box-shadow:0 0 0 3px var(--court)}
+.hint{font:400 12px var(--f-mono);color:var(--muted);text-align:center;margin:0;max-width:40ch}
+
+.panel{display:flex;flex-direction:column;gap:20px;min-width:0}
+.group h3{font:600 11.5px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid #B9C1CB;background:var(--slide);padding:8px 13px;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;line-height:1.2}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip small{font:500 11px var(--f-mono);opacity:.7;margin-left:4px}
+.fcard{border:1px solid var(--line);border-left:5px solid var(--court);border-radius:6px;padding:14px 16px;display:grid;gap:10px}
+.fcard h4{font-family:var(--f-display);font-size:30px;font-weight:800;text-transform:uppercase;margin:0;line-height:1;letter-spacing:.01em}
+.fcard p{margin:0;font-size:15px;max-width:60ch}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;font-size:14px;margin:0}
+.meta dt{font:500 11.5px/1.9 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.meta dd{margin:0}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1.5px solid var(--ink);background:var(--slide);padding:8px 13px;border-radius:6px;font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn:hover{background:#F1F3F5}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.primary:hover{background:#1E4878}
+.btn[aria-pressed="true"]{background:var(--court);border-color:var(--court);color:var(--ink)}
+.btn svg{width:16px;height:16px}
+.log{font:400 12.5px/1.5 var(--f-mono);background:#F2F4F6;border-radius:6px;padding:10px 12px;margin:0;min-height:3.2em}
+.log b{font-weight:600}
+.oppbox{border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.oppbox-head{background:#3A424F;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.oppbox-head strong{font-family:var(--f-display);font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.oppbox-head span{font:500 11px var(--f-mono);color:#C9CFD6}
+.opprows{display:grid;margin:0}
+.opprows div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 14px;border-top:1px solid var(--line);font-size:14px}
+.opprows div:first-child{border-top:0}
+.opprows dt{font:600 11px/1.8 var(--f-mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.opprows dd{margin:0}
+@media (max-width:440px){.opprows div{grid-template-columns:1fr;gap:2px}}
+
+/* ---------- Gantt ---------- */
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gantt{display:grid;grid-template-columns:minmax(190px,240px) repeat(12,minmax(30px,1fr));min-width:640px;row-gap:0;font-size:13.5px}
+.g-axis{font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--ink);padding:0 6px 6px;border-left:1px solid var(--line)}
+.g-axis.first{border-left:0;padding-left:0}
+.g-label{padding:9px 12px 9px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.g-label strong{font-weight:700;line-height:1.25}
+.g-label .owner{font:400 11px var(--f-mono);color:var(--muted)}
+.g-label .ms-note{font:500 11px var(--f-mono);color:var(--court-ink)}
+.g-track{border-bottom:1px solid var(--line);background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(100% / 12 - 1px),var(--line) calc(100% / 12 - 1px),var(--line) calc(100% / 12));}
+.g-bar{align-self:center;height:22px;border-radius:4px;background:var(--navy);margin:0 2px;z-index:1;position:relative}
+.g-bar.crit{background:var(--rag-r)}
+.g-bar.open{background:repeating-linear-gradient(135deg,var(--navy) 0 8px,#2C5A8E 8px 16px);border-radius:4px 0 0 4px;margin-right:0}
+.g-ms{align-self:center;justify-self:center;width:14px;height:14px;background:var(--court);transform:rotate(45deg);border:2px solid #fff;z-index:2;box-shadow:0 0 0 1px var(--court-ink)}
+.g-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font:400 12px var(--f-mono);color:var(--muted);align-items:center}
+.g-legend i{display:inline-block;width:18px;height:10px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.g-legend i.ms{width:10px;height:10px;transform:rotate(45deg);border-radius:0;margin-right:8px}
+
+/* ---------- RACI ---------- */
+.raci{width:100%;min-width:660px;border-collapse:collapse;font-size:14px}
+.raci th{text-align:left;font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:2px solid var(--ink);padding:0 10px 8px;vertical-align:bottom}
+.raci th b{display:block;font-family:var(--f-display);font-size:26px;font-weight:900;color:var(--court-ink);line-height:1;letter-spacing:0}
+.raci td{border-bottom:1px solid var(--line);padding:10px;vertical-align:top}
+.raci td:first-child{font-weight:700;padding-left:0;width:26%}
+.raci th:first-child{padding-left:0}
+.raci tr:hover td{background:#F7F8FA}
+.raci .q{font-style:italic}
+
+/* ---------- Footer ---------- */
+footer{padding:10px 0 40px}
+footer p{font:400 12px/1.6 var(--f-mono);color:var(--muted);margin:0;max-width:80ch}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .tok,.board.slow .tok,.pcard{transition:none !important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hero-lines" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="rgba(255,255,255,.07)" stroke-width="3">
+      <rect x="140" y="90" width="920" height="460"/>
+      <line x1="600" y1="60" x2="600" y2="580" stroke-width="6"/>
+      <line x1="447" y1="90" x2="447" y2="550"/>
+      <line x1="753" y1="90" x2="753" y2="550"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="brand-mark">NP</span><span>Net Promoters <span class="sub">· EY Consulting</span></span></div>
+      <nav aria-label="Seksjoner">
+        <a href="#laget">Laget</a>
+        <a href="#taktikk">Taktikk</a>
+        <a href="#kampplan">Kampplan</a>
+        <a href="#raci">RACI</a>
+      </nav>
+    </div>
+    <div class="hero-body">
+      <p class="eyebrow">Volleyballturnering 2026 · Statement_of_Work_v3.2_FINAL_final(2).pptx</p>
+      <div class="h1wrap">
+        <h1>Net<br>Promoters</h1>
+        <div class="stamp" aria-hidden="true">Utkast<br>til diskusjon</div>
+      </div>
+      <p class="tagline">Vi leverer verdi. Over nettet.</p>
+      <p class="kickoff">Kampstart: se kalenderinvitasjonen (sendt tre ganger, oppdatert to).</p>
+
+      <div class="hero-grid">
+        <section class="exec" aria-labelledby="exec-h">
+          <h2 id="exec-h">Executive summary</h2>
+          <ul>
+            <li>Consulting stiller med <b>åtte spillere, null treningsøkter</b> og én svært gjennomarbeidet nettside.</li>
+            <li>Analysen viser betydelig oppside i å treffe ballen. Vi anbefaler å gjøre det oftere.</li>
+            <li>Motstanderne har tung kompetanse på revisjon, skatt og verdsettelse. Ingen av delene er volleyball.</li>
+            <li><b>Anbefaling:</b> Vinne. <b>Neste steg:</b> Ta feiringen offline etter siste kamp.</li>
+          </ul>
+        </section>
+        <div class="kpis">
+          <div class="kpi"><b>0</b><span class="lbl">Treningsøkter gjennomført</span><span class="rag r">Rød</span></div>
+          <div class="kpi"><b>47</b><span class="lbl">Slides produsert om taktikk</span><span class="rag g">Grønn</span></div>
+          <div class="kpi"><b>112 %</b><span class="lbl">Forventet utilization på banen</span><span class="rag a">Over kapasitet</span></div>
+          <div class="kpi"><b>+100</b><span class="lbl">Net Promoter Score (selvrapportert)</span><span class="rag g">Grønn</span></div>
+          <p class="kpi-src">Kilde: Teamets egen analyse, n = 8. Ikke revidert. Vi spurte ikke Assurance.</p>
+        </div>
+      </div>
+
+      <div class="timeout">
+        <button class="btn-court" id="speechBtn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3 11v2a2 2 0 0 0 2 2h2l5 4V5L7 9H5a2 2 0 0 0-2 2z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg>
+          Generer timeout-tale
+        </button>
+        <p class="speech" id="speech" aria-live="polite">«Folkens, la oss leverage våre kjernekompetanser for å maksimere ballkontakt. Vi tar resten offline.»<small>Til bruk i timeout. Les høyt med alvorlig stemme.</small></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 01 LAGET -->
+  <section class="slide" id="laget" aria-labelledby="laget-h">
+    <div class="slide-head">
+      <p class="kicker">Staffing-oversikt</p>
+      <h2 id="laget-h">Åtte spillere med komplementær kompetanse og sterkt overlappende Excel-ferdigheter</h2>
+    </div>
+    <div class="cards" id="cards"></div>
+    <ul class="legend" aria-label="Forklaring på stats">
+      <li><b>SMA</b> Smash</li>
+      <li><b>SRV</b> Serve</li>
+      <li><b>MOT</b> Mottak</li>
+      <li><b>EXL</b> Excel</li>
+      <li><b>PPT</b> PowerPoint</li>
+      <li><b>BUZ</b> Buzzwords per minutt</li>
+    </ul>
+    <div class="slide-foot"><span>Kilde: Selvrapporterte data, kalibrert i plenum. Stats er justert for inflasjon og ego.</span><span>Net Promoters · 1</span></div>
+  </section>
+
+  <!-- 02 TAKTIKK -->
+  <section class="slide" id="taktikk" aria-labelledby="taktikk-h">
+    <div class="slide-head">
+      <p class="kicker">Taktikktavle</p>
+      <h2 id="taktikk-h">Seks formasjoner fra workshopen. To av dem er lovlige.</h2>
+    </div>
+    <div class="tactics">
+      <div class="board-col">
+        <div class="board" id="board">
+          <svg class="court" viewBox="0 0 100 220" preserveAspectRatio="none" aria-hidden="true">
+            <rect width="100" height="220" fill="#173A63"/>
+            <rect x="5" y="5" width="90" height="180" fill="#E2672F"/>
+            <rect x="5" y="5" width="90" height="180" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+            <line x1="5" y1="65" x2="95" y2="65" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            <line x1="5" y1="125" x2="95" y2="125" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            <rect x="1.5" y="93.6" width="97" height="2.8" fill="#0E2440"/>
+            <line x1="1.5" y1="95" x2="98.5" y2="95" stroke="#fff" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
+            <rect x="0.4" y="92.6" width="2.2" height="4.8" fill="#fff"/>
+            <rect x="97.4" y="92.6" width="2.2" height="4.8" fill="#fff"/>
+            <rect x="4" y="190" width="92" height="27" rx="2" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.5)" stroke-width="1.2" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="board-txt" id="oppLabel" style="top:4.6%">Motstander: Assurance</div>
+          <div class="board-txt" style="top:81.4%">Net Promoters</div>
+          <div class="bench-note" id="benchNote"><b>Benken</b><span id="benchText">Ikke staffet.</span></div>
+          <canvas id="draw" aria-hidden="true"></canvas>
+        </div>
+        <p class="hint">Dra spillerne og ballen. Slå på «Tegn piler» for å tegne på banen.</p>
+      </div>
+
+      <div class="panel">
+        <div class="group">
+          <h3>Formasjon</h3>
+          <div class="chips" id="fChips" role="group" aria-label="Velg formasjon"></div>
+        </div>
+
+        <article class="fcard" aria-live="polite">
+          <h4 id="fName">Business as Usual</h4>
+          <p id="fDesc"></p>
+          <dl class="meta">
+            <dt>Risiko</dt><dd id="fRisk"></dd>
+            <dt>Eier</dt><dd id="fOwner"></dd>
+            <dt>Effekt</dt><dd id="fEffect"></dd>
+          </dl>
+        </article>
+
+        <div class="group">
+          <h3>Verktøy</h3>
+          <div class="tools">
+            <button class="btn primary" id="rotBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg>
+              Staffing-rotasjon
+            </button>
+            <button class="btn" id="drawBtn" type="button" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/></svg>
+              Tegn piler
+            </button>
+            <button class="btn" id="clearBtn" type="button">Visk ut</button>
+            <button class="btn" id="resetBtn" type="button">Tilbakestill</button>
+          </div>
+        </div>
+
+        <div class="group">
+          <h3>Endringslogg</h3>
+          <p class="log" id="log" aria-live="polite">Baseline etablert. Ingen endringer siden forrige styringsgruppemøte.</p>
+        </div>
+
+        <div class="group">
+          <h3>Motstander</h3>
+          <div class="chips" id="oChips" role="group" aria-label="Velg motstander"></div>
+        </div>
+
+        <div class="oppbox" aria-live="polite">
+          <div class="oppbox-head"><strong id="oName">Assurance</strong><span>Due diligence-rapport</span></div>
+          <dl class="opprows">
+            <div><dt>Styrker</dt><dd id="oStr"></dd></div>
+            <div><dt>Svakheter</dt><dd id="oWeak"></dd></div>
+            <div><dt>Vår plan</dt><dd id="oPlan"></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>Kilde: Taktikkworkshop (to timer, ingen ball til stede). Formasjonene er ikke godkjent av Norges Volleyballforbund.</span><span>Net Promoters · 2</span></div>
+  </section>
+
+  <!-- 03 KAMPPLAN -->
+  <section class="slide" id="kampplan" aria-labelledby="kampplan-h">
+    <div class="slide-head">
+      <p class="kicker">Kampplan</p>
+      <h2 id="kampplan-h">Turneringen leveres i sju faser. Kiosken ligger på kritisk linje.</h2>
+    </div>
+    <div class="scroll-x">
+      <div class="gantt" id="gantt" role="table" aria-label="Gantt-plan for turneringen"></div>
+    </div>
+    <div class="g-legend">
+      <span><i style="background:var(--navy)"></i>Planlagt aktivitet</span>
+      <span><i style="background:var(--rag-r)"></i>Kritisk linje</span>
+      <span><i class="ms" style="background:var(--court)"></i>Milepæl</span>
+      <span><i style="background:repeating-linear-gradient(135deg,var(--navy) 0 4px,#2C5A8E 4px 8px)"></i>Ubestemt varighet</span>
+    </div>
+    <div class="slide-foot"><span>Kilde: PMO. Tidslinjen er indikativ og oppdateres i hvert statusmøte.</span><span>Net Promoters · 3</span></div>
+  </section>
+
+  <!-- 04 RACI -->
+  <section class="slide" id="raci" aria-labelledby="raci-h">
+    <div class="slide-head">
+      <p class="kicker">Ansvarsmatrise</p>
+      <h2 id="raci-h">Hvem tar ballen? Endelig avklart i en RACI-matrise</h2>
+    </div>
+    <div class="scroll-x">
+      <table class="raci">
+        <thead>
+          <tr>
+            <th scope="col">Situasjon</th>
+            <th scope="col"><b>R</b>Utfører</th>
+            <th scope="col"><b>A</b>Ansvarlig</th>
+            <th scope="col"><b>C</b>Konsulteres</th>
+            <th scope="col"><b>I</b>Informeres</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Ballen lander midt mellom to spillere</td><td>Den som roper «min» først</td><td>Sine</td><td>Alle som også ropte «min»</td><td>Benken</td></tr>
+          <tr><td>Serve i settball</td><td>Abigail</td><td>Abigail</td><td>Ingen. Hun vet hva hun gjør.</td><td>Motstanderen, for sent</td></tr>
+          <tr><td>Smash fra kant</td><td>Mathias</td><td>Sine, som hevet</td><td>Ikke nødvendig</td><td>Gulvet på andre siden</td></tr>
+          <tr><td>Ball langt ut av banen</td><td>Iselin</td><td>Iselin</td><td>Ikke nødvendig</td><td>Resten, som heier</td></tr>
+          <tr><td>Tvilsom dommeravgjørelse</td><td>Jacob</td><td>Kapteinen</td><td>Tax &amp; Law, mot honorar</td><td>Dommeren, med respekt</td></tr>
+          <tr><td>Siste ball i tiebreak</td><td>Stian</td><td>Stian</td><td>Det er ikke tid</td><td>Hele hallen</td></tr>
+          <tr><td>Tapt poeng</td><td>Ingen</td><td class="q">«Markedsforholdene»</td><td>Ikke nødvendig</td><td>Styringsgruppen, neste kvartal</td></tr>
+          <tr><td>Feiring etter poeng</td><td>Alle</td><td>Birger</td><td>Thea, som har koreografien</td><td>Hele EY, via Teams</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-foot"><span>Kilde: Interessentworkshop (45 min, utsatt fire ganger). R = Responsible, A = Accountable, C = Consulted, I = Informed.</span><span>Net Promoters · 4</span></div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Strengt konfidensielt (vis gjerne til alle). Utkast til diskusjon. Alle tall er illustrative og ikke revidert. Laget av Consulting, for Consulting. Null fakturerbare timer ble brukt på denne siden, ifølge timelisten.</p>
+</footer>
+
+<script>
+(function(){
+const $ = s => document.querySelector(s);
+
+/* ---------------- Data ---------------- */
+const STAT_KEYS = ['SMA','SRV','MOT','EXL','PPT','BUZ'];
+const PLAYERS = [
+  {id:'abigail', first:'Abigail', name:'Abigail S Baguio', no:7, pos:'KANT', posFull:'Kantspiller', title:'Chief Serve Officer', ovr:89, st:[84,95,86,90,87,81],
+   power:'Serven treffer oftere enn noen budsjettprognose vi har laget.', quote:'Jeg tar den. Og jeg tar notater.'},
+  {id:'birger', first:'Birger', name:'Birger Haugen', no:10, pos:'KAP', posFull:'Benk-strateg', title:'PMO & Kaptein', ovr:79, st:[72,75,74,97,95,93],
+   power:'Har laget Gantt-plan for oppvarmingen og RACI for drikkeflaskene. Resten av skillpoengene gikk til PMO.', quote:'Kan vi ta en kjapp statusrunde mellom hvert poeng?', badge:'Kaptein · laget siden'},
+  {id:'iselin', first:'Iselin', name:'Iselin Helmikstøl', no:2, pos:'LIB', posFull:'Libero', title:'Head of Risk Management', ovr:89, st:[70,82,96,89,85,79],
+   power:'Fanger alt: baller, risikoer og scope creep. Spiller i egen trøyefarge, som en uavhengig kvalitetskontroll.', quote:'Den er mitigert.', libero:true},
+  {id:'jacob', first:'Jacob', name:'Jacob Somby', no:12, pos:'MID', posFull:'Midtblokker', title:'Stakeholder Blocker', ovr:87, st:[86,79,78,88,84,90],
+   power:'Sier nei til alt som kommer over nettet. Alltid konstruktivt, alltid med et alternativ.', quote:'Jeg hører hva du sier. Svaret er fortsatt nei.'},
+  {id:'mathias', first:'Mathias', name:'Mathias K Førland', no:9, pos:'KANT', posFull:'Kantspiller', title:'Delivery Lead', ovr:88, st:[92,83,84,87,80,82],
+   power:'Leverer smasher på tid, på budsjett og innenfor scope.', quote:'Deliverable levert. Hva er neste?'},
+  {id:'sine', first:'Sine', name:'Sine Viste Fagerland', no:3, pos:'OPP', posFull:'Oppspiller', title:'Engagement Manager', ovr:90, st:[78,84,88,91,89,86],
+   power:'Setter opp andre for suksess. Bokstavelig talt.', quote:'Jeg legger den klar, så tar du æren.'},
+  {id:'stian', first:'Stian', name:'Stian Haugen', no:11, pos:'MID', posFull:'Midtblokker', title:'Subject Matter Expert', ovr:87, st:[88,80,81,85,83,84],
+   power:'Hentes inn når det brenner. Hopper høyest og vet alltid hvor ballen kommer.', quote:'Dette har jeg sett på et tidligere prosjekt.'},
+  {id:'thea', first:'Thea', name:'Thea K Nygaard', no:5, pos:'DIA', posFull:'Diagonal', title:'Transformation Lead', ovr:88, st:[90,85,80,86,92,88],
+   power:'Gjør en desperat redning om til et angrep og kaller det ende-til-ende-transformasjon.', quote:'Hva om vi tenker helt nytt rundt denne ballen?'}
+];
+const P = Object.fromEntries(PLAYERS.map(p => [p.id, p]));
+
+// slots: 0=pos1 (bak høyre/server) 1=pos2 2=pos3 3=pos4 4=pos5 5=pos6 6,7=benk
+const DEFAULT_SLOTS = ['sine','thea','jacob','mathias','abigail','iselin','birger','stian'];
+const BENCH = [[62,203],[82,203]];
+const OPP_POS = [[22,30],[50,30],[78,30],[22,78],[50,78],[78,78]];
+const BALL_START = [88,177];
+
+const F = {
+  bau:{name:'Business as Usual', tag:'5-1', risk:['g','Lav'], owner:'Oppspilleren',
+    desc:'Klassisk oppstilling. Alle står der de skal, ingen husker hvorfor. Har vært standard siden forrige omorganisering.',
+    effect:'Forutsigbar leveranse. Ingen blir forfremmet.',
+    pos:[[78,160],[78,112],[50,112],[22,112],[22,160],[50,160]]},
+  waterfall:{name:'Waterfall-mottak', tag:'W', risk:['a','Middels'], owner:'Prosjektstyret',
+    desc:'Mottak i W-form. Hver fase må være helt ferdig før neste kan starte. Problemet er at ballen jobber agilt.',
+    effect:'Perfekt dokumentert mottak, cirka to sekunder for sent.',
+    pos:[[64,101],[84,128],[50,128],[16,128],[33,160],[67,160]]},
+  agile:{name:'Agile Sprint', tag:'6-0', risk:['r','Høy'], owner:'Scrum master (ukjent)',
+    desc:'Alle sprinter mot nettet i to-ukers intervaller, med daglig standup mellom poengene. Bakre del av banen er lagt i backloggen.',
+    effect:'Ugjennomtrengelig blokk. Ingen tar ball nummer to.',
+    pos:[[90,101],[74,101],[58,101],[10,101],[26,101],[42,101]]},
+  matrix:{name:'Matriseorganisasjon', tag:'3×2', risk:['r','Høy'], owner:'Alle (altså ingen)',
+    desc:'Alle rapporterer til alle. Når ballen kommer, holdes et kort avklaringsmøte om hvem som eier den.',
+    effect:'Bred forankring. Ballen lander i midten.',
+    pos:[[62,146],[62,126],[50,126],[38,126],[38,146],[50,146]]},
+  offline:{name:"Let's take this offline", tag:'0-0', risk:['r','Kritisk'], owner:'Den som booket møterommet',
+    desc:'Når ballen blir vanskelig, flytter vi diskusjonen et annet sted. Saken settes på agendaen til neste styringsgruppemøte.',
+    effect:'Null konflikt. Null poeng.',
+    pos:[[84,166],[94,171],[75,173],[89,180],[79,184],[69,181]]},
+  scope:{name:'Scope creep', tag:'∞', risk:['r','Kritisk'], owner:'Kunden, ifølge oss',
+    desc:'Startet som et enkelt mottak. Nå står vi på motstanderens banehalvdel og har lovet dem en ny CRM-løsning.',
+    effect:'Regelbrudd: ja. Change request: sendt.',
+    pos:[[88,55],[66,55],[44,55],[22,55],[10,40],[36,42]]}
+};
+
+const OPP = {
+  assurance:{name:'Assurance', tag:'REV',
+    str:'Sjekker hver ball tre ganger. Slipper aldri gjennom en feil, de oppdager den bare litt sent.',
+    weak:'Kan ikke slå før ballen er avstemt, dokumentert og signert av partner. Alt under vesentlighetsgrensen blir ignorert.',
+    plan:'Korte, raske baller. De rekker ikke å be om bilag.'},
+  tax:{name:'Tax & Law', tag:'§',
+    str:'Finner smutthullet i blokken hver gang. Kan regelboka bedre enn dommeren, og sier det høyt.',
+    weak:'Vil avskrive ballen lineært over fem år. Fører timer i seksminutters-intervaller, så hver timeout blir dyr.',
+    plan:'Høyt tempo. Hver protest må forankres i rettspraksis, og det tar tid.'},
+  sat:{name:'Strategy and Transactions', tag:'DCF',
+    str:'Har en modell som viser at de vinner. Den har 47 faner og et tornadodiagram.',
+    weak:'Verdsetter ballen før de har den. Synergiene kommer først i år tre.',
+    plan:'Endre én forutsetning i modellen: at de vinner. Da faller alt.'},
+  ukjent:{name:'Ukjent motstander', tag:'?',
+    str:'Ukjent. Due diligence ble ikke ferdig før fristen.',
+    weak:'Antagelse: de har en svakhet. Vi har ikke funnet den, men den er sikkert der.',
+    plan:'Spill som om det er Assurance. Det har fungert i alle våre interne simuleringer.'}
+};
+
+const GANTT_AXIS = [{l:'Oppmøte',s:1,e:3},{l:'Gruppespill',s:3,e:9},{l:'Sluttspill',s:9,e:11},{l:'Etterpå',s:11,e:13}];
+const GANTT = [
+  {t:'Oppmøte og kickoff-workshop', o:'Birger', s:1, e:3, rag:['g','I rute']},
+  {t:'Sett 1: Discovery', o:'Hele teamet', s:3, e:5, rag:['a','Lærer reglene'], ms:{at:4, l:'Første poeng (estimert)'}},
+  {t:'Kiosken: boller og kaffe', o:'Ingen, altså alle', s:5, e:6, rag:['r','Kritisk linje'], crit:true},
+  {t:'Sett 2: Delivery', o:'Sine', s:6, e:8, rag:['g','I rute'], ms:{at:7, l:'Timeout med alignment-møte'}},
+  {t:'Sett 3: Hypercare', o:'Iselin', s:8, e:9, rag:['a','Kun ved behov']},
+  {t:'Finale: Benefits realization', o:'Kapteinen', s:9, e:11, rag:['r','Ikke budsjettert']},
+  {t:'Lessons learned (tatt offline)', o:'Thea', s:11, e:13, rag:['g','Ubestemt varighet'], open:true}
+];
+
+const SPEECH = {
+  a:['Folkens,','Team,','Ok, kjapp alignment:','Hør her,','Før vi går inn igjen:','Kort oppsummert:'],
+  b:['la oss leverage','vi må operasjonalisere','det er på tide å skalere','vi skal kapitalisere på','nå må vi optimalisere','vi må re-prioritere'],
+  c:['våre kjernekompetanser','innsikten vi har bygget','momentumet fra forrige poeng','hele verdikjeden fra mottak til smash','vår unike ballforståelse','de lavthengende ballene'],
+  d:['for å maksimere ballkontakt','for å skape varig verdi over nettet','og levere en ende-til-ende-smash','for å flytte nålen på poengtavla','og ta ut gevinstene allerede i dette settet','med full forankring i laget'],
+  e:['Vi tar resten offline.','Jeg sender en oppsummering på e-post.','Ingen ball er for liten til å eskaleres.','Er alle aligned? Bra.','Dette er et no-regret move.','Hands in. På tre: «synergi».']
+};
+
+/* ---------------- Cards ---------------- */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+$('#cards').innerHTML = PLAYERS.map(p => `
+  <article class="pcard${p.libero?' libero':''}">
+    <div class="pc-top">
+      <div class="pc-ovr">${p.ovr}<small>${p.pos}</small></div>
+      <div class="pc-no" aria-hidden="true">${p.no}</div>
+    </div>
+    <div class="pc-body">
+      ${p.badge?`<span class="badge">${esc(p.badge)}</span>`:''}
+      <div><div class="pc-name">${esc(p.name)}</div><div class="pc-title">${esc(p.title)} · ${esc(p.posFull)}</div></div>
+      <div class="pc-stats">${p.st.map((v,i)=>`<div class="st"><b>${v}</b><span>${STAT_KEYS[i]}</span></div>`).join('')}</div>
+      <div class="pc-power"><span>Superkraft</span>${esc(p.power)}</div>
+      <blockquote class="pc-quote">«${esc(p.quote)}»</blockquote>
+      <div class="pc-foot">Timepris 0 kr · pro bono</div>
+    </div>
+  </article>`).join('');
+
+/* ---------------- Gantt ---------------- */
+(function(){
+  const g = $('#gantt'); let h = '';
+  h += `<div class="g-axis first" style="grid-row:1;grid-column:1" role="columnheader">Aktivitet</div>`;
+  GANTT_AXIS.forEach(a => { h += `<div class="g-axis" style="grid-row:1;grid-column:${a.s+1}/${a.e+1}" role="columnheader">${a.l}</div>`; });
+  GANTT.forEach((r,i) => {
+    const row = i+2;
+    h += `<div class="g-label" style="grid-row:${row};grid-column:1" role="rowheader"><strong>${esc(r.t)}</strong><span class="owner">Eier: ${esc(r.o)}</span><span class="rag ${r.rag[0]}">${r.rag[1]}</span>${r.ms?`<span class="ms-note">◆ ${esc(r.ms.l)}</span>`:''}</div>`;
+    h += `<div class="g-track" style="grid-row:${row};grid-column:2/14" aria-hidden="true"></div>`;
+    h += `<div class="g-bar${r.crit?' crit':''}${r.open?' open':''}" style="grid-row:${row};grid-column:${r.s+1}/${r.e+1}" aria-hidden="true"></div>`;
+    if (r.ms) h += `<div class="g-ms" style="grid-row:${row};grid-column:${r.ms.at+1}" title="${esc(r.ms.l)}" aria-hidden="true"></div>`;
+  });
+  g.innerHTML = h;
+})();
+
+/* ---------------- Timeout speech ---------------- */
+let lastSpeech = '';
+const pick = a => a[Math.floor(Math.random()*a.length)];
+$('#speechBtn').addEventListener('click', () => {
+  let s;
+  do { s = `${pick(SPEECH.a)} ${pick(SPEECH.b)} ${pick(SPEECH.c)} ${pick(SPEECH.d)}. ${pick(SPEECH.e)}`; } while (s === lastSpeech);
+  lastSpeech = s;
+  $('#speech').innerHTML = `«${esc(s)}»<small>Til bruk i timeout. Les høyt med alvorlig stemme.</small>`;
+});
+
+/* ---------------- Tactics board ---------------- */
+const board = $('#board');
+const canvas = $('#draw');
+const ctx = canvas.getContext('2d');
+const toks = {};
+let state;
+
+function makeTok(id, cls, inner, label, aria){
+  const d = document.createElement('div');
+  d.className = 'tok ' + cls; d.dataset.id = id; d.tabIndex = 0;
+  d.setAttribute('role','button'); d.setAttribute('aria-label', aria);
+  d.innerHTML = `<span class="disc">${inner}</span>${label?`<span class="nm">${esc(label)}</span>`:''}`;
+  board.insertBefore(d, canvas);
+  toks[id] = d; return d;
+}
+OPP_POS.forEach((_,i) => makeTok('o'+i, 'opp', 'REV', '', 'Motstander '+(i+1)+'. Dra for å flytte.'));
+PLAYERS.forEach(p => makeTok(p.id, p.libero?'lib':'', p.no, p.first, `${p.first}, ${p.posFull}. Dra eller bruk piltastene for å flytte.`));
+makeTok('ball','ball','<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#fff" stroke="#0E2440" stroke-width="1.4"/><path d="M12 1c-2.5 3.5-2.5 8 0 11s7.5 4 10.5 1.5M12 12c-4 .5-8 3.5-9.5 7M12 12c1.5-4 5-7.5 9-8" fill="none" stroke="#0E2440" stroke-width="1.4"/></svg>','', 'Ballen. Dra for å flytte.');
+
+function place(id){
+  const p = state.pos[id], el = toks[id]; if(!p || !el) return;
+  el.style.left = p[0] + '%';
+  el.style.top = (p[1] / 2.2) + '%';
+}
+function placeAll(){ Object.keys(toks).forEach(place); }
+
+function setFormationPositions(key){
+  const f = F[key];
+  state.slots.forEach((id,i) => { state.pos[id] = (i < 6 ? f.pos[i] : BENCH[i-6]).slice(); });
+}
+function renderFormationUI(){
+  const f = F[state.formation];
+  $('#fName').textContent = f.name;
+  $('#fDesc').textContent = f.desc;
+  $('#fRisk').innerHTML = `<span class="rag ${f.risk[0]}">${f.risk[1]}</span>`;
+  $('#fOwner').textContent = f.owner;
+  $('#fEffect').textContent = f.effect;
+  document.querySelectorAll('#fChips .chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.k === state.formation)));
+  board.classList.toggle('slow', state.formation === 'scope');
+}
+function renderBench(){
+  const b = state.slots.slice(6);
+  $('#benchText').textContent = (b.includes('birger') && b.includes('stian'))
+    ? 'Haugen & Haugen starter her av habilitetshensyn.'
+    : 'Ikke staffet. Tilgjengelig for nye oppdrag.';
+}
+function renderOpp(){
+  const o = OPP[state.opp];
+  $('#oName').textContent = o.name;
+  $('#oStr').textContent = o.str;
+  $('#oWeak').textContent = o.weak;
+  $('#oPlan').textContent = o.plan;
+  $('#oppLabel').textContent = 'Motstander: ' + o.name;
+  OPP_POS.forEach((_,i) => { toks['o'+i].querySelector('.disc').textContent = o.tag; });
+  document.querySelectorAll('#oChips .chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.k === state.opp)));
+}
+function log(html){ $('#log').innerHTML = html; }
+
+// chips
+$('#fChips').innerHTML = Object.entries(F).map(([k,f]) => `<button type="button" class="chip" data-k="${k}" aria-pressed="false">${esc(f.name)}<small>${f.tag}</small></button>`).join('');
+$('#oChips').innerHTML = Object.entries(OPP).map(([k,o]) => `<button type="button" class="chip" data-k="${k}" aria-pressed="false">${esc(o.name)}</button>`).join('');
+
+$('#fChips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if(!c) return;
+  state.formation = c.dataset.k;
+  setFormationPositions(state.formation);
+  renderFormationUI(); placeAll();
+  log(`Formasjon <b>«${esc(F[state.formation].name)}»</b> innført. Endringsledelse pågår.`);
+});
+$('#oChips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if(!c) return;
+  state.opp = c.dataset.k; renderOpp();
+  log(`Ny motstander valgt: <b>${esc(OPP[state.opp].name)}</b>. Due diligence-rapport oppdatert.`);
+});
+
+// rotation: 8-syklus inkludert benken
+const ROT = {1:0, 0:5, 5:4, 4:6, 6:7, 7:3, 3:2, 2:1};
+$('#rotBtn').addEventListener('click', () => {
+  const n = new Array(8);
+  Object.entries(ROT).forEach(([from,to]) => { n[to] = state.slots[from]; });
+  const inId = state.slots[7], outId = state.slots[4];
+  state.slots = n; state.rot++;
+  setFormationPositions(state.formation); placeAll(); renderBench();
+  log(`Staffing-rotasjon #${state.rot}: <b>${P[inId].first}</b> staffes inn, <b>${P[outId].first}</b> går på benken. Utilization: 100 %.`);
+});
+
+$('#resetBtn').addEventListener('click', () => {
+  state = freshState(); state.strokes = [];
+  renderFormationUI(); renderBench(); renderOpp(); placeAll(); redraw();
+  setDrawing(false);
+  log('Tilbakestilt til baseline. Alle endringer er arkivert i en mappe ingen finner igjen.');
+});
+
+// drag
+let drag = null;
+function boardXY(e){
+  const r = board.getBoundingClientRect();
+  return [Math.min(99, Math.max(1, (e.clientX - r.left) / r.width * 100)), Math.min(219, Math.max(1, (e.clientY - r.top) / r.height * 220))];
+}
+board.addEventListener('pointerdown', e => {
+  if (state.drawing) return;
+  const t = e.target.closest('.tok'); if(!t) return;
+  e.preventDefault();
+  drag = {id:t.dataset.id, el:t, pid:e.pointerId, start:state.pos[t.dataset.id].slice()};
+  try{ t.setPointerCapture(e.pointerId); }catch(_){}
+  t.classList.add('dragging');
+});
+board.addEventListener('pointermove', e => {
+  if(!drag || e.pointerId !== drag.pid) return;
+  state.pos[drag.id] = boardXY(e); place(drag.id);
+});
+function endDrag(e){
+  if(!drag || e.pointerId !== drag.pid) return;
+  const d = drag; drag = null; d.el.classList.remove('dragging');
+  const p = state.pos[d.id];
+  if (Math.hypot(p[0]-d.start[0], p[1]-d.start[1]) > 2) moved(d.id);
+}
+board.addEventListener('pointerup', endDrag);
+board.addEventListener('pointercancel', endDrag);
+
+function moved(id){
+  if (id === 'ball') { log('Ballen er flyttet. Ingen har tatt eierskap til den.'); return; }
+  if (id.startsWith('o')) { log('Motstander omplassert uten samtykke. Tax &amp; Law er varslet.'); return; }
+  state.cr++;
+  log(`Change request #${String(state.cr).padStart(3,'0')}: <b>${P[id].first}</b> omplassert. Godkjent av ingen, implementert av alle.`);
+}
+
+// tastatur
+board.addEventListener('keydown', e => {
+  const t = e.target.closest('.tok'); if(!t) return;
+  const k = {ArrowLeft:[-2,0],ArrowRight:[2,0],ArrowUp:[0,-2],ArrowDown:[0,2]}[e.key];
+  if(!k) return; e.preventDefault();
+  const id = t.dataset.id, p = state.pos[id];
+  state.pos[id] = [Math.min(99,Math.max(1,p[0]+k[0])), Math.min(219,Math.max(1,p[1]+k[1]))];
+  place(id); moved(id);
+});
+
+// tegning
+let cur = null;
+function setDrawing(on){
+  state.drawing = on;
+  board.classList.toggle('drawing', on);
+  $('#drawBtn').setAttribute('aria-pressed', String(on));
+}
+$('#drawBtn').addEventListener('click', () => {
+  setDrawing(!state.drawing);
+  log(state.drawing ? 'Tegnemodus på. Alt som tegnes med pil, regnes som strategi.' : 'Tegnemodus av. Spillerne kan flyttes igjen.');
+});
+$('#clearBtn').addEventListener('click', () => {
+  state.strokes = []; redraw();
+  log('Whiteboardet er visket ut. Ingen tok bilde av det først.');
+});
+function resizeCanvas(){
+  const r = board.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+  redraw();
+}
+function drawStroke(pts, done){
+  if (pts.length < 2) return;
+  const W = canvas.width, H = canvas.height, dpr = window.devicePixelRatio || 1;
+  ctx.lineWidth = 3.5 * dpr; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#FFFFFF'; ctx.fillStyle = '#FFFFFF';
+  ctx.shadowColor = 'rgba(14,36,64,.55)'; ctx.shadowBlur = 3 * dpr;
+  ctx.beginPath(); ctx.moveTo(pts[0][0]*W, pts[0][1]*H);
+  for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0]*W, pts[i][1]*H);
+  ctx.stroke();
+  if (done) {
+    const a = pts[pts.length-1], b = pts[Math.max(0, pts.length-6)];
+    const ang = Math.atan2((a[1]-b[1])*H, (a[0]-b[0])*W), L = 13 * dpr;
+    ctx.beginPath();
+    ctx.moveTo(a[0]*W, a[1]*H);
+    ctx.lineTo(a[0]*W - L*Math.cos(ang-0.45), a[1]*H - L*Math.sin(ang-0.45));
+    ctx.lineTo(a[0]*W - L*Math.cos(ang+0.45), a[1]*H - L*Math.sin(ang+0.45));
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+}
+function redraw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  (state.strokes || []).forEach(s => drawStroke(s, true));
+  if (cur) drawStroke(cur, false);
+}
+function normXY(e){ const r = board.getBoundingClientRect(); return [(e.clientX-r.left)/r.width, (e.clientY-r.top)/r.height]; }
+canvas.addEventListener('pointerdown', e => {
+  if (!state.drawing) return;
+  e.preventDefault(); cur = [normXY(e)];
+  try{ canvas.setPointerCapture(e.pointerId); }catch(_){}
+});
+canvas.addEventListener('pointermove', e => { if(!cur) return; cur.push(normXY(e)); redraw(); });
+function endStroke(){
+  if(!cur) return;
+  if (cur.length > 2) { state.strokes.push(cur); log('Pil tegnet. Taktikken er nå visualisert, og dermed sann.'); }
+  cur = null; redraw();
+}
+canvas.addEventListener('pointerup', endStroke);
+canvas.addEventListener('pointercancel', endStroke);
+if ('ResizeObserver' in window) new ResizeObserver(resizeCanvas).observe(board);
+else window.addEventListener('resize', resizeCanvas);
+
+/* ---------------- State / boot ---------------- */
+function freshState(){
+  const s = {slots:DEFAULT_SLOTS.slice(), pos:{}, formation:'bau', opp:'assurance', cr:0, rot:0, strokes:[], drawing:false};
+  const f = F.bau;
+  s.slots.forEach((id,i) => { s.pos[id] = (i<6 ? f.pos[i] : BENCH[i-6]).slice(); });
+  OPP_POS.forEach((p,i) => { s.pos['o'+i] = p.slice(); });
+  s.pos.ball = BALL_START.slice();
+  return s;
+}
+function start(data){
+  state = freshState();
+  if (data && data.slots && data.slots.length === 8) {
+    Object.assign(state, data, {drawing:false});
+  }
+  renderFormationUI(); renderBench(); renderOpp();
+  board.classList.add('slow'); placeAll(); // ingen animasjon ved første innlasting
+  Object.values(toks).forEach(t => t.style.transition = 'none');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    Object.values(toks).forEach(t => t.style.transition = '');
+    board.classList.toggle('slow', state.formation === 'scope');
+  }));
+  resizeCanvas();
+}
+try { window.claude?.hot?.snapshot?.(() => ({slots:state.slots, pos:state.pos, formation:state.formation, opp:state.opp, cr:state.cr, rot:state.rot, strokes:state.strokes})); } catch(_){}
+if (window.claude?.hot?.ready) window.claude.hot.ready(start); else start(window.claude?.hot?.data ?? {});
+})();
+</script>
+</body>
+</html>
